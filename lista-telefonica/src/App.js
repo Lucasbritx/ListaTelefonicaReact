@@ -8,17 +8,17 @@ import Table from 'react-bootstrap/Table';
 import Image from 'react-bootstrap/Image';
 import Form from 'react-bootstrap/Form';
 
-function LinhaTabela(props){
+function LinhaTabela(colab){
   return(
-    <tr key = {props.nome}>
-    <td>{props.nome}</td>
-    <td>{props.email}</td>
-    <td>{props.celular}</td>
+    <tr key = {colab.nome}>
+    <td>{colab.nome}</td>
+    <td>{colab.email}</td>
+    <td>{colab.telefone}</td>
     <td>
     <Image
     height="64"
     width="64"
-    src={props.foto || 'https://png.pngtree.com/svg/20170420/b7c37c5a9e.png' }
+    src={colab.foto || 'https://png.pngtree.com/svg/20170420/b7c37c5a9e.png' }
     alt='erro'
     roundedCircle
     thumbnail>
@@ -27,7 +27,6 @@ function LinhaTabela(props){
     </tr>
     
     )}
-    
     
     class App extends React.Component{
       constructor(props){
@@ -44,7 +43,7 @@ function LinhaTabela(props){
       
       
       getPessoas() {
-        axios.get('http://private-ba46ed-softtrainee.apiary-mock.com/colaboradores')
+        axios.get('http://localhost:3001/colaboradores/')
         .then((res) => {
           const pessoas = res.data;
           this.setState({ pessoas })
@@ -67,12 +66,12 @@ function LinhaTabela(props){
           <tr>
           <th>Nome</th>
           <th>E-mail</th>
-          <th>Celular</th>
+          <th>Telefone</th>
           <th>Foto</th>
           </tr>
           </thead>
           <tbody>
-          {filtrados.map(LinhaTabela)}
+          {filtrados.map(colab => LinhaTabela(colab))}
           </tbody>
           </Table>
           );
